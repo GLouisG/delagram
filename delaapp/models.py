@@ -59,10 +59,15 @@ class Comment(models.Model):
   def __str__(self):
     return self.content  
   def save_comment(self):
+      '''Saves the comment'''
       self.save()
   def delete_comment(self):
       '''Deletes the comment'''
-      self.delete()        
+      self.delete()      
+  def change_comment(self, new_comment):
+      ''' method to change a comment'''
+      self.content = new_comment
+      self.save()        
 
 # class Foll(models.Model):
 #     target = models.ForeignKey('User', related_name='followers')
