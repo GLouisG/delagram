@@ -50,14 +50,14 @@ class Image(models.Model):
         print('The caption does not exist in our records')
 
 
-# class Comment(models.Model):
-#   postde = models.ForeignKey('Image', on_delete=models.CASCADE)
-#   owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
-#   content = models.TextField()
-#   pub_date = models.DateTimeField(auto_now_add=True)
+class Comment(models.Model):
+  postde = models.ForeignKey('Image', on_delete=models.CASCADE)
+  owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
+  content = models.TextField()
+  pub_date = models.DateTimeField(auto_now_add=True)
 
-#   def __str__(self):
-#     return self.content  
+  def __str__(self):
+    return self.content  
 
 # class Foll(models.Model):
 #     target = models.ForeignKey('User', related_name='followers')
