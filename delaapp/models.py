@@ -2,16 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE,)
-  dp = models.ImageField(upload_to = 'profiles/', default='SOME STRING')
-  bio = models.TextField(max_length=500, default=f'This is my bio, Welcome!')
-  def __str__(self):
-         return self.user.username
+    user = models.OneToOneField(User, on_delete=models.CASCADE,)
+    dp = models.ImageField(upload_to = 'profiles/', default='SOME STRING')
+    bio = models.TextField(max_length=500, default=f'This is my bio, Welcome!')
+    following = models.ManyToManyField(User, blank=True, related_name='followers')
+    
+    def __str__(self):
+          return self.user.username
 
-  # def save_profile(self):
-  #        self.save()
-  # def delete_profile(self):
-  #        self.delete()     
+    # def save_profile(self):
+    #        self.save()
+    # def delete_profile(self):
+    #        self.delete()     
 
 # class Image(models.Model):
 #   image = models.ImageField(upload_to='images/')
