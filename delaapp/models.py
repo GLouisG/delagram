@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
-    dp = models.ImageField(upload_to = 'profiles/', default='SOME STRING')
+    picture = models.ImageField(upload_to = 'profiles/', default='SOME STRING')
     bio = models.TextField(max_length=500, default=f'This is my bio, Welcome!')
     following = models.ManyToManyField(User, blank=True, related_name='followers')
     
@@ -16,17 +16,22 @@ class Profile(models.Model):
            self.delete()     
     def bio_updater(self, new_bio):
            self.bio = new_bio
-           self.save()      
+           self.save()  
+    def pic_update(self, photo):
+           ''' method to update a profile picture '''
+           self.picture = photo
+           self.save()
 
-# class Image(models.Model):
-#   image = models.ImageField(upload_to='images/')
-#   caption = models.TextField()
-#   owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
-#   likes = models.ManyToManyField(User, blank=True)
-#   pub_date = models.DateTimeField(auto_now_add=True)
 
-#   def __str__(self):
-#     return self.caption
+class Image(models.Model):
+  image = models.ImageField(upload_to='images/')
+  caption = models.TextField()
+  owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
+  likes = models.ManyToManyField(User, blank=True)
+  pub_date = models.DateTimeField(auto_now_add=True)
+
+  def __str__(self):
+    return f'{self.caption}'
     
 
 #   def updater(self, cap):
