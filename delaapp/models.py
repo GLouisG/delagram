@@ -8,12 +8,15 @@ class Profile(models.Model):
     following = models.ManyToManyField(User, blank=True, related_name='followers')
     
     def __str__(self):
-          return self.user.username
+          return f'{self.user.username}'
 
     def save_profile(self):
            self.save()
     def delete_profile(self):
            self.delete()     
+    def bio_updater(self, new_bio):
+           self.bio = new_bio
+           self.save()      
 
 # class Image(models.Model):
 #   image = models.ImageField(upload_to='images/')
