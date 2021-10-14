@@ -8,13 +8,16 @@ class Profile(models.Model):
     following = models.ManyToManyField(User, blank=True, related_name='followers')
     
     def __str__(self):
-          return f'{self.user.username}'
+          return f'Profile {self.user.username}'
 
     def save_profile(self):
+           '''Saves profiles'''
            self.save()
     def delete_profile(self):
+           '''Deletes profiles''' 
            self.delete()     
     def bio_updater(self, new_bio):
+           '''Updates bios'''
            self.bio = new_bio
            self.save()  
     def pic_update(self, photo):
@@ -31,7 +34,7 @@ class Image(models.Model):
   pub_date = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
-    return f'{self.caption}'
+    return f'Image {self.caption}'
 
   def save_image(self):
       '''Saves the image'''
@@ -57,7 +60,7 @@ class Comment(models.Model):
   pub_date = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
-    return self.content  
+    return "Comment{self.content}"  
   def save_comment(self):
       '''Saves the comment'''
       self.save()
