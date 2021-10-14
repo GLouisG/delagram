@@ -34,13 +34,13 @@ class Image(models.Model):
     return f'{self.caption}'
     
 
-#   def updater(self, cap):
-#     try:
-#       self.caption = cap
-#       self.save()
-#       return self
-#     except self.DoesNotExist:
-#       print('The caption does not exist in our records')
+  def updater(self, cap):
+    try:
+      self.caption = cap
+      self.save()
+      return self
+    except self.DoesNotExist:
+      print('The caption does not exist in our records')
 
 # class Comment(models.Model):
 #   postde = models.ForeignKey('Image', on_delete=models.CASCADE)
