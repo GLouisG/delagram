@@ -14,3 +14,11 @@ class UserProfileTestClass(TestCase):
     def tearDown(self):
         User.objects.all().delete()
         Profile.objects.all().delete()
+    def test_save(self):
+        self.profile.save_profile()
+        the_profile = Profile.objects.all()
+        self.assertTrue(len(the_profile)>0)
+    def test_delete(self):
+        self.profile.save_profile()      
+        self.profile.delete_profile()
+        self.assertTrue(len(Profile.objects.all())==0)
