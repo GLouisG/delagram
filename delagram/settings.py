@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'delaapp.apps.DelaappConfig',    
+    'delaapp.apps.DelaappConfig', 
+    'django.contrib.postgres'   
 ]
 
 MIDDLEWARE = [
