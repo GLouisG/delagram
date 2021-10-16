@@ -39,10 +39,10 @@ def comment(request, id):
     the_comments  = Comment.objects.get(postde = id)
     return render(request, 'comment.html', {"form": form, "comments": the_comments})      
 
-# def you (request):
-#     current_user = request.user
-#     pics  =   Image.objects.get(owner = current_user).all()
-#     return render(request, 'you.html', {"pics": pics,})     
+def you (request):
+    current_user = request.user
+    pics  =   Image.objects.get(owner = current_user).all()
+    return render(request, 'you.html', {"pics": pics,})     
 
 # def profile(request, id):
 #     user = User.objects.get(id=id)
