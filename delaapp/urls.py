@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^comments/(\d+)', views.comment, name='comment'),
     url(r'^profile/(\d+)', views.profile, name='profile'),
     url(r'^you/', views.you, name="you"), 
- 
+    url(r'^like/(\d+)', views.like, name="like"),  
 ]
