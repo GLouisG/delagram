@@ -43,3 +43,6 @@ class ImageTestClass(TestCase):
     def test_updater(self):
         updated = self.test_img.updater('Hi')
         self.assertEqual(updated.caption, 'Hi')                       
+    def test_search(self):
+        img = Image.img_searcher('caption')
+        self.assertTrue(len(img)>0)         
