@@ -46,3 +46,21 @@ class ImageTestClass(TestCase):
     def test_search(self):
         img = Image.img_searcher('caption')
         self.assertTrue(len(img)>0)         
+
+class CommentTestClass(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username="Johnny")
+        self.user.save()
+        self.profile = Profile(user=self.user, picture="test.jpg", bio = "A description" )
+        self.profile.save_profile()
+        self.test_img = Image(image="test.jpg", caption="caption", owner=self.profile, pub_date=datetime.now())  
+        self.test_img.save_image()  
+        self.test_comm = Comment(postde=self.test_img, owner=self.profile,content="content", pub_date=datetime.now())
+        self.test_comm.save_comment()
+
+    def tearDown(self):
+        User.objects.all().delete()
+        Profile.objects.all().delete()
+        Image.objects.all().delete()
+        Comment.objects.all().delete()
