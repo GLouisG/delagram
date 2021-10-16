@@ -1,0 +1,66 @@
+{%extends base.html}
+
+{%block content%}{{block.super}}
+<div class="container">
+  <div class="profile">
+    <div class="profile-row row">
+      <div class="col-md-3">
+      <div class="profile-pic">
+        <img src="{{user.profile.picture.url}}" alt="profile">
+      </div>
+      </div>
+      <div class="col-md-8">
+        <h1>{{user.username}}</h1>
+        <a href="{% url 'logout'%}?next={{request.path}}"><p>Log Out</p></a>
+        <a href="{% url 'new_post'%}"><i class="fa fa-plus" style="font-size:36px"></i><p>New Post</p></a>
+      </div>      
+    </div>
+    <div class="stat-row row">
+      <p>Following{{user.profile.following.count}}    Followers{{user.profile.followers.count}}</p>
+      <p></p>
+    </div>
+
+    <div class="bio-row row">
+      <p>{{user.profile.bio}}</p>
+    </div>
+    <div class="collection">
+
+        {%for item in pics}
+          <div class="card">
+      
+            <div class="card-header">
+              <a href="profile/{{item.owner.user.id}}" >
+                <img src="{{item.owner.picture.url}}" class="user-image" alt="">
+              </a>
+              <a href="profile/{{item.owner.user.id}} ">
+                <p class="image-owner">item.owner.user</p>         
+              </a>        
+            </div>
+            <hr>
+      
+            <div class="card-body">
+              <img class="image" src="{{item.image}}" alt="">
+            <hr>
+            <a class="like-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
+            <a class="comment-icon" href="/comment/{{item.id}}"><i class="far fa-comment"></i></a>
+            <p class="Likes">Liked by {{item.likes.count}} others</p>
+            <p>
+                <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a> {{item.caption}}.
+            </p>
+            <a href="/comment/{{item.id}}" class="comment-direct">
+              <p>View All Comments</p>
+            </a>
+            <p>{{item.pub_date|timesince}} Ago</p>
+            <hr>        
+            </div>
+            <hr>
+            <br>
+          </div>
+        {%endfor%}  
+
+    </div>
+
+
+  </div>
+</div>
+{%endblock%}
