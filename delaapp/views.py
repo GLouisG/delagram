@@ -11,18 +11,18 @@ def landing(request):
   current_user = request.user.profile
   feed = Image.objects.get(owner = current_user.following).all()
   return render(request, 'index.html', {"feed": feed,"explore": explore})
-# def new_post(request):
-#     current_user = request.user.profile
-#     if request.method == "POST":
-#       form = NewImageForm(request.POST, request.FILES)
-#       if form.is_valid():
-#         post = form.save(commit=False)
-#         post.owner = current_user
-#         post.save()
-#         return redirect('landing')
-#     else:
-#         form = NewImageForm()
-#     return render(request, 'new_post.html', {"form": form})
+def new_post(request):
+    current_user = request.user.profile
+    if request.method == "POST":
+      form = NewImageForm(request.POST, request.FILES)
+      if form.is_valid():
+        post = form.save(commit=False)
+        post.owner = current_user
+        post.save()
+        return redirect('landing')
+    else:
+        form = NewImageForm()
+    return render(request, 'new_post.html', {"form": form})
 
 # def comment(request, id):
 #     current_user = request.user
