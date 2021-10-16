@@ -24,20 +24,20 @@ def new_post(request):
         form = NewImageForm()
     return render(request, 'new_post.html', {"form": form})
 
-# def comment(request, id):
-#     current_user = request.user
-#     current_image = Image.objects.filter(id=id)
-#     form = NewCommentForm(request.POST)
-#     if form.is_valid():
-#       comm = form.save(commit=False)
-#       comm.owner = current_user
-#       comm.postde = current_image        
-#       comm.save()
-#       return redirect('comment')      
-#     else:
-#         form = NewCommentForm()
-#     the_comments  = Comment.objects.get(postde = id)
-#     return render(request, 'comment.html', {"form": form, "comments": the_comments})      
+def comment(request, id):
+    current_user = request.user
+    current_image = Image.objects.filter(id=id)
+    form = NewCommentForm(request.POST)
+    if form.is_valid():
+      comm = form.save(commit=False)
+      comm.owner = current_user
+      comm.postde = current_image        
+      comm.save()
+      return redirect('comment')      
+    else:
+        form = NewCommentForm()
+    the_comments  = Comment.objects.get(postde = id)
+    return render(request, 'comment.html', {"form": form, "comments": the_comments})      
 
 # def you (request):
 #     current_user = request.user
