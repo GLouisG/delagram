@@ -39,4 +39,7 @@ class ImageTestClass(TestCase):
         Image.objects.all().delete()
     def test_delete(self):     
         self.test_img.delete_image()
-        self.assertTrue(len(Image.objects.all())==0)                
+        self.assertTrue(len(Image.objects.all())==0) 
+    def test_updater(self):
+        updated = self.test_img.updater('Hi')
+        self.assertEqual(updated.caption, 'Hi')                       
