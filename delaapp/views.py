@@ -44,10 +44,10 @@ def you (request):
     pics  =   Image.objects.get(owner = current_user).all()
     return render(request, 'you.html', {"pics": pics,})     
 
-# def profile(request, id):
-#     user = User.objects.get(id=id)
-#     pics = Image.objects.get(owner = id).all()
-#     return render(request, 'profile.html', {"pics": pics, "user":user})
+def profile(request, id):
+    user = User.objects.get(id=id)
+    pics = Image.objects.get(owner = id).all()
+    return render(request, 'profile.html', {"pics": pics, "user":user})
 
 # def search_results(request):
 #     if 'image' in request.GET and request.GET["image"]:
