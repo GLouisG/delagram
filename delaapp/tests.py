@@ -36,4 +36,7 @@ class ImageTestClass(TestCase):
     def tearDown(self):
         User.objects.all().delete()
         Profile.objects.all().delete()
-        Image.objects.all().delete()        
+        Image.objects.all().delete()
+    def test_delete(self):     
+        self.test_img.delete_image()
+        self.assertTrue(len(Image.objects.all())==0)                
