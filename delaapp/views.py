@@ -58,6 +58,14 @@ def search_results(request):
         return render(request, 'search.html', {"title":title, "imgs":searched_imgs})
     else:
         message = "You haven't searched for any term"
-        return render(request, 'search.html',{"message":message}) 
+        return render(request, 'search.html',{"message":message})
+def like(request, post_id):
+    current_user = request.user
+    img = Image.objects.get(id=post_id)
+    if img.likes.filter(id = current_user.id).exists():
+       img.likes.remove(current_user)   
+    else:
+       img.likes.add(current_user)
+    return redirect('landing')              
 
       
