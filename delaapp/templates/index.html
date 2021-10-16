@@ -1,1 +1,77 @@
-<h1>Welcome</h1>
+{%extends base.html%}
+{%block content%}{{block.user}}
+<div class="card">
+  <i class="fa fa-compass" style="font-size:24px"><p>Explore</p></i>
+  <i class="fa fa-home" style="font-size:24px"><p>Home</p></i>
+</div>
+<span class="feed-span">
+  {%for item in feed%}
+    <div class="card">
+
+      <div class="card-header">
+        <a href="profile/{{item.owner.user.id}}" >
+          <img src="{{item.owner.picture.url}}" class="user-image" alt="">
+        </a>
+        <a href="profile/{{item.owner.user.id}} ">
+          <p class="image-owner">item.owner.user</p>         
+        </a>        
+      </div>
+      <hr>
+
+      <div class="card-body">
+        <img class="image" src="{{item.image}}" alt="">
+      <hr>
+      <a class="like-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
+      <a class="comment-icon" href="/comment/{{item.id}}"><i class="far fa-comment"></i></a>
+      <p class="Likes">Liked by {{item.likes.count}} others</p>
+      <p>
+          <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a> {{item.caption}}.
+      </p>
+      <a href="/comment/{{item.id}}" class="comment-direct">
+        <p>View All Comments</p>
+      </a>
+      <p>{{item.pub_date|timesince}} Ago</p>
+      <hr>        
+      </div>
+      <hr>
+      <br>
+    </div>
+  {%endfor%}  
+</span>
+<span class="explore-span">
+  {%for item in explore}
+    <div class="card">
+
+      <div class="card-header">
+        <a href="profile/{{item.owner.user.id}}" >
+          <img src="{{item.owner.picture.url}}" class="user-image" alt="">
+        </a>
+        <a href="profile/{{item.owner.user.id}} ">
+          <p class="image-owner">item.owner.user</p>         
+        </a>        
+      </div>
+      <hr>
+
+      <div class="card-body">
+        <img class="image" src="{{item.image}}" alt="">
+      <hr>
+      <a class="like-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
+      <a class="comment-icon" href="/comment/{{item.id}}"><i class="far fa-comment"></i></a>
+      <p class="Likes">Liked by {{item.likes.count}} others</p>
+      <p>
+          <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a> {{item.caption}}.
+      </p>
+      <a href="/comment/{{item.id}}" class="comment-direct">
+        <p>View All Comments</p>
+      </a>
+      <p>{{item.pub_date|timesince}} Ago</p>
+      <hr>        
+      </div>
+      <hr>
+      <br>
+    </div>
+  {%endfor%}  
+</span>
+{%endblock%}
+
+
