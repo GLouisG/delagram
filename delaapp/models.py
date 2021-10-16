@@ -51,10 +51,14 @@ class Image(models.Model):
         return self
       except self.DoesNotExist:
         print('The caption does not exist in our records')
+  @classmethod
+  def img_searcher(cls, search_term):
+    photos = cls.objects.filter(caption__search = search_term)
+    return photos          
 
 
 class Comment(models.Model):
-  postde = models.ForeignKey('Image', on_delete=models.CASCADE)
+  postde = models.ForeignKey('Image',related_name="comments", on_delete=models.CASCADE)
   owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
   content = models.TextField()
   pub_date = models.DateTimeField(auto_now_add=True)
