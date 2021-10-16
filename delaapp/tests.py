@@ -65,5 +65,5 @@ class CommentTestClass(TestCase):
         Image.objects.all().delete()
         Comment.objects.all().delete()
     def test_delete(self):     
-        self.test_comm.delete_image()
+        self.test_comm.delete_comment()
         self.assertTrue(len(Comment.objects.all())==0)        
