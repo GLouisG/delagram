@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^new/post$', views.new_post, name='new_post'),
     url(r'^comments/(\d+)', views.comment, name='comment'),
     url(r'^profile/(\d+)', views.profile, name='profile'),
-
+    url(r'^you/', views.you, name="you"), 
+ 
 ]
