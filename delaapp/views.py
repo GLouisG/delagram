@@ -49,15 +49,15 @@ def profile(request, id):
     pics = Image.objects.get(owner = id).all()
     return render(request, 'profile.html', {"pics": pics, "user":user})
 
-# def search_results(request):
-#     if 'image' in request.GET and request.GET["image"]:
-#         search_term = request.GET.get("image")
-#         searched_imgs = Image.img_searcher(search_term)
-#         title = f"For {search_term}"
+def search_results(request):
+    if 'image' in request.GET and request.GET["image"]:
+        search_term = request.GET.get("image")
+        searched_imgs = Image.img_searcher(search_term)
+        title = f"For {search_term}"
 
-#         return render(request, 'search.html', {"title":title, "imgs":searched_imgs})
-#     else:
-#         message = "You haven't searched for any term"
-#         return render(request, 'search.html',{"message":message}) 
+        return render(request, 'search.html', {"title":title, "imgs":searched_imgs})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message}) 
 
       
