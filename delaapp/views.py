@@ -67,5 +67,15 @@ def like(request, post_id):
     else:
        img.likes.add(current_user)
     return redirect('landing')              
+def followToggle(request, name):
+    profileObj = User.objects.get(username=name)
+    current_user = User.objects.get(username=request.user.username)
+    following = profileObj.following.all()
 
+    if name != current_user.username:
+        if current_user in following:
+            profileObj.following.remove(current_user.id)
+        else:
+            profileObj.following.add(current_user.id)
+    return redirect('landing')         
       

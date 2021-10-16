@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, path
 from .import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^you/', views.you, name="you"), 
     url(r'^like/(\d+)', views.like, name="like"),  
     url(r'^search/',  views.search_results, name='search_results'),
+    path("followToggle/<str:name>/",views.followToggle, name="followToggle")
 ]

@@ -17,7 +17,7 @@
     </div>
     <div class="stat-row row">
       <p>Following{{user.profile.following.count}}    Followers{{user.profile.followers.count}}</p>
-      <a href="{% url 'followToggle' user=user.username  %}"><button type="button" class="btn btn-primary">Follow</button</a>
+      <a href="{% url 'followToggle' name=user.username  %}"><button type="button" class="btn btn-primary">Follow</button</a>
     </div>
 
     <div class="bio-row row">
