@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'delaapp.apps.DelaappConfig', 
-    'django.contrib.postgres,'
+    'django.contrib.postgres',
     'cloudinary_storage',
     'cloudinary',
     'registration',
-    'django.contrib.sites',       
+    # 'django.contrib.sites',       
 ]
 
 MIDDLEWARE = [

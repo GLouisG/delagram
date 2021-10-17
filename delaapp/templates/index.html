@@ -1,4 +1,4 @@
-{%extends base.html%}
+{%extends 'base.html'%}
 {%block content%}{{block.super}}
 <div class="card">
   <i class="fa fa-compass" style="font-size:24px"><p>Explore</p></i>
@@ -39,7 +39,8 @@
   {%endfor%}  
 </span>
 <span class="explore-span">
-  {%for item in explore}
+  {%if explore%}
+  {%for item in explore%}
     <div class="card">
 
       <div class="card-header">
@@ -70,7 +71,10 @@
       <hr>
       <br>
     </div>
-  {%endfor%}  
+
+  {% endfor %}  
+  {%endif%}
+  
 </span>
 {%endblock%}
 

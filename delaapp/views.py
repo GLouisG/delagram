@@ -3,14 +3,22 @@ from django.http import HttpResponse, Http404
 from django.db.models.base import ObjectDoesNotExist
 from delaapp.forms import NewCommentForm, NewImageForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from delaapp.models import Comment, Image
 # Create your views here.
+
+@login_required(login_url='/accounts/login/')
 def landing(request):
   explore = Image.objects.all()
   current_user = request.user.profile
-  feed = Image.objects.get(owner = current_user.following).all()
-  return render(request, 'index.html', {"feed": feed,"explore": explore})
+  following = current_user.following.all()
+  the_feed = []
+  for item in following:
+      feed = Image.objects.filter(owner = item).all()
+      the_feed.append(feed)
+  
+  return render(request, 'index.html', {"feed": the_feed,"explore": explore})
 def new_post(request):
     current_user = request.user.profile
     if request.method == "POST":
