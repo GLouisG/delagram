@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.db.models.base import ObjectDoesNotExist
-from delaapp.forms import NewCommentForm, NewImageForm
+from delaapp.forms import NewCommentForm, NewImageForm, UpdateProfileForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -20,7 +20,7 @@ def landing(request):
   
   return render(request, 'index.html', {"feed": the_feed,"explore": explore})
 def new_post(request):
-    current_user = request.user.profile
+    current_user = request.user.profile    
     if request.method == "POST":
       form = NewImageForm(request.POST, request.FILES)
       if form.is_valid():
@@ -33,19 +33,24 @@ def new_post(request):
     return render(request, 'new_post.html', {"form": form})
 
 def comment(request, id):
-    current_user = request.user
-    current_image = Image.objects.filter(id=id)
-    form = NewCommentForm(request.POST)
-    if form.is_valid():
-      comm = form.save(commit=False)
-      comm.owner = current_user
-      comm.postde = current_image        
-      comm.save()
-      return redirect('comment')      
+    current_user = request.user.profile
+    current_image = Image.objects.get(id=id)
+    image_id = id
+    if request.method == "POST":
+       form = NewCommentForm(request.POST)
+       if form.is_valid():
+        comm = form.save(commit=False)
+        comm.owner = current_user
+        comm.postde = current_image        
+        comm.save()
+        return redirect('landing')      
     else:
         form = NewCommentForm()
-    the_comments  = Comment.objects.get(postde = id)
-    return render(request, 'comment.html', {"form": form, "comments": the_comments})      
+    try:    
+        the_comments  = Comment.objects.filter(postde = id)
+    except Comment.DoesNotExist:
+        the_comments = None    
+    return render(request, 'comment.html', {"form": form, "comments": the_comments, "image_id": image_id})      
 
 def you (request):
     current_user = request.user.profile
@@ -53,7 +58,10 @@ def you (request):
     print("profile", profile_pic )
     if profile_pic == "SOME STRING":
         print("profile", profile_pic )
-        profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg"  
+        profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg" 
+    elif profile_pic == "profile.jpg":
+        print("profile", profile_pic )
+        profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg"          
     else:
         profile_pic = None      
     print("profile", profile_pic)    
@@ -105,3 +113,13 @@ def bio(request):
     else:
         message = "You haven't changed anything"
         return redirect('you')      
+
+def update_profile(request):
+    if request.method == "POST":
+      form = UpdateProfileForm(request.POST, request.FILES)
+      if form.is_valid():
+        prof = form.save()
+        return redirect('you')
+    else:
+        form = UpdateProfileForm()
+    return render(request, 'update_prof.html', {"form": form})    

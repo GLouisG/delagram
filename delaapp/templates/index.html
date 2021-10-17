@@ -1,81 +1,148 @@
 {%extends 'base.html'%}
 {%block content%}{{block.super}}
-<div class="card">
-  <i class="fa fa-compass" style="font-size:24px"><p>Explore</p></i>
-  <i class="fa fa-home" style="font-size:24px"><p>Home</p></i>
+
+<div class="container">
+    <div class="card choices">
+      <i class="fa fa-compass" id="explore" style="font-size:24px"><p>Explore</p></i>
+      <i class="fa fa-home" id="feed" style="font-size:24px"><p>Home/feed</p></i>
+    </div>
+  <span class="collection" id="feed-span">
+    {%for item in feed%}
+    <div class="card" style="width: 60%;">
+
+      <div class="card-header">
+        <a href="profile/{{item.owner.user.id}}" >
+
+        <!-- </a>
+        <a href="profile/{{item.owner.user.id}} "> -->
+          <p class="image-owner">
+            <img  src="{{item.owner.picture.url}}" class="user-image" alt="" style="height: 10px; border: 1px solid red"> {{item.owner.user}}
+          </p>         
+        </a>        
+      </div>
+      <hr>
+
+      <div class="card-body">
+        <div class="image-holder">
+          <img style="height: 100%; width: 100%; padding-bottom: 0px; margin-bottom: 0px;" class="image" src="{{item.image.url}}" alt="">
+        </div>
+
+      <hr>
+      <a class="like-icon" href="/like/{{item.id}}"><i class="fa fa-heart"></i></a>
+      <a class="comment-icon" href="/comments/{{item.id}}"><i class="fa fa-comment"></i></a>
+      <p class="Likes">Liked by {{item.likes.count}} others</p>
+      <p>
+          <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a>: {{item.caption}}.
+      </p>
+      <a href="/comments/{{item.id}}" class="comment-direct">
+        <p>View All Comments</p>
+      </a>
+      <p>{{item.pub_date|timesince}} Ago</p>
+ 
+      <hr>        
+      </div>
+      <hr>
+      <br>
+    </div>
+    <br><br><br>
+  {%endfor%}   
+  </span>
+  <span class="collection" id="explore-span">
+    {%if explore%}
+    {%for item in explore%}
+    <div class="card" style="width: 60%;">
+
+      <div class="card-header">
+        <a href="profile/{{item.owner.user.id}}" >
+
+        <!-- </a>
+        <a href="profile/{{item.owner.user.id}} "> -->
+          <p class="image-owner">
+            <img  src="{{item.owner.picture.url}}" class="user-image" alt="" style="height: 10px; border: 1px solid red"> {{item.owner.user}}
+          </p>         
+        </a>        
+      </div>
+      <hr>
+
+      <div class="card-body">
+        <div class="image-holder">
+          <img style="height: 100%; width: 100%; padding-bottom: 0px; margin-bottom: 0px;" class="image" src="{{item.image.url}}" alt="">
+        </div>
+
+      <hr>
+      <a class="like-icon" href="/like/{{item.id}}"><i class="fa fa-heart"></i></a>
+      <a class="comment-icon" href="/comments/{{item.id}}"><i class="fa fa-comment"></i></a>
+      <p class="Likes">Liked by {{item.likes.count}} others</p>
+      <p>
+          <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a>: {{item.caption}}.
+      </p>
+      <a href="/comments/{{item.id}}" class="comment-direct">
+        <p>View All Comments</p>
+      </a>
+      <p>{{item.pub_date|timesince}} Ago</p>
+ 
+      <hr>        
+      </div>
+      <hr>
+      <br>
+      </div>
+      <br><br><br>
+    {%endfor%}   
+    {%endif%}
+    
+  </span>
 </div>
-<span class="feed-span">
-  {%for item in feed%}
-    <div class="card">
 
-      <div class="card-header">
-        <a href="profile/{{item.owner.user.id}}" >
-          <img src="{{item.owner.picture.url}}" class="user-image" alt="">
-        </a>
-        <a href="profile/{{item.owner.user.id}} ">
-          <p class="image-owner">item.owner.user</p>         
-        </a>        
-      </div>
-      <hr>
 
-      <div class="card-body">
-        <img class="image" src="{{item.image}}" alt="">
-      <hr>
-      <a class="like-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
-      <a class="comment-icon" href="/comment/{{item.id}}"><i class="far fa-comment"></i></a>
-      <p class="Likes">Liked by {{item.likes.count}} others</p>
-      <p>
-          <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a> {{item.caption}}.
-      </p>
-      <a href="/comment/{{item.id}}" class="comment-direct">
-        <p>View All Comments</p>
-      </a>
-      <p>{{item.pub_date|timesince}} Ago</p>
-      <hr>        
-      </div>
-      <hr>
-      <br>
-    </div>
-  {%endfor%}  
-</span>
-<span class="explore-span">
-  {%if explore%}
-  {%for item in explore%}
-    <div class="card">
 
-      <div class="card-header">
-        <a href="profile/{{item.owner.user.id}}" >
-          <img src="{{item.owner.picture.url}}" class="user-image" alt="">
-        </a>
-        <a href="profile/{{item.owner.user.id}} ">
-          <p class="image-owner">item.owner.user</p>         
-        </a>        
-      </div>
-      <hr>
+<style>
+  .container{
+    position:relative;
+  }
+  .collection{
+    position: absolute;
+    left: 30%;
+  }
+  .image-holder{
+    text-align: center;
+  }
+  .card{
+    border: 1px solid rgb(173, 173, 173);
+    }
+    a{
+      color: black;
+    }
+    p{
+      word-wrap: break-word;
+    }
+    #feed-span{
+      display:none;
+    }
+    .choices{
+      text-transform: center;
+    }
+</style>
 
-      <div class="card-body">
-        <img class="image" src="{{item.image}}" alt="">
-      <hr>
-      <a class="like-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
-      <a class="comment-icon" href="/comment/{{item.id}}"><i class="far fa-comment"></i></a>
-      <p class="Likes">Liked by {{item.likes.count}} others</p>
-      <p>
-          <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a> {{item.caption}}.
-      </p>
-      <a href="/comment/{{item.id}}" class="comment-direct">
-        <p>View All Comments</p>
-      </a>
-      <p>{{item.pub_date|timesince}} Ago</p>
-      <hr>        
-      </div>
-      <hr>
-      <br>
-    </div>
 
-  {% endfor %}  
-  {%endif%}
-  
-</span>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('#explore').on('click', function(){
+    $('#explore-span').show(500);
+    $('#feed-span').hide();
+  });
+  $('#feed').on('click', function(){
+    $('#explore-span').hide();
+    $('#feed-span').show(500);
+  });
+});
+
+console.log('Hi')
+
+</script>
+
+
 {%endblock%}
 
 

@@ -16,11 +16,11 @@
 
 <body>
 
-  <form  action="{%url 'comment'%}" method="post" enctype="multipart/form-data">
+  <form   action="{%url 'comment' image_id%}" method="post" enctype="multipart/form-data" >
     {%csrf_token%}
 
     {% bootstrap_form form%}
-    <input type="submit" class="btn btn-success btn-lg" value="Post">
+    <input type="submit" class="btn btn-primary btn-lg" value="Post">
   </form>
 
    {% block scripts %}
@@ -31,9 +31,9 @@
   <span>
     {%for item in comments%}
       <div class="card">
-        <p>item.content</p>
-        <p style="font-size: 15px">item.owner.user.username</p>
-        <p style="font-size: 12px">item.pub_date</p>
+        <p>{{item.content}}</p>
+        <p style="font-size: 15px">{{item.owner.user.username}}</p>
+        <p style="font-size: 12px">{{item.pub_date}}</p>
       </div>
     {%endfor%}
   </span>

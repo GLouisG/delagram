@@ -20,6 +20,7 @@
         <h1>{{user.username}}</h1>
         <a href="'/logout' ?next={{request.path}}"><p>Log Out</p></a>
         <a href="{% url 'new_post'%}"><i class="fa fa-plus" style="font-size:36px"></i><p>New Post</p></a>
+        <a href="{% url 'update_profile'%}"><i class="fa fa-image" style="font-size:24px"></i><p>Change Profile Picture</p></a>
       </div>      
     </div>
     <div class="stat-row row">
@@ -29,7 +30,6 @@
 
     <div class="bio-row row">
       <p>{{user.profile.bio}}</p>
-      <p>{{profile_pic}}</p>
     </div>
     
     
@@ -37,11 +37,11 @@
       <button class="btn btn-success bio-btn">Change bio</button>
     </div>
     <form class="bio-form" role="search" action="{% url 'bio' %}">
-
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Change Bio" name="bio">
+      
+      <div class="input-group" style="width:210px; padding-left: 0px; margin-left: 0px;">
+        <input style="padding-left: 0px; margin-left: 0px;" type="text" class="form-control" placeholder="Change Bio" name="bio">
         <div class="input-group-btn">
-          <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          <button style="padding-left: 0px; margin-left: 0px;"  class="btn btn-default" type="submit"><i class="fa fa-pencil"></i></button>
         </div>
       </div>
 
@@ -54,36 +54,43 @@
     <div class="collection">
 
         {%for item in pics%}
-          <div class="card">
+          <div class="card" style="width: 60%;">
       
             <div class="card-header">
               <a href="profile/{{item.owner.user.id}}" >
-                <img src="{{item.owner.picture.url}}" class="user-image" alt="">
-              </a>
-              <a href="profile/{{item.owner.user.id}} ">
-                <p class="image-owner">item.owner.user</p>         
+
+              <!-- </a>
+              <a href="profile/{{item.owner.user.id}} "> -->
+                <p class="image-owner">
+                   <img  src="{{item.owner.picture.url}}" class="user-image" alt="" style="height: 10px; border: 1px solid red"> {{item.owner.user}}
+                </p>         
               </a>        
             </div>
             <hr>
       
             <div class="card-body">
-              <img class="image" src="{{item.image}}" alt="">
+              <div class="image-holder">
+                <img style="height: 100%; width: 100%; padding-bottom: 0px; margin-bottom: 0px;" class="image" src="{{item.image.url}}" alt="">
+              </div>
+
             <hr>
-            <a class="like-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
-            <a class="comment-icon" href="/comment/{{item.id}}"><i class="far fa-comment"></i></a>
+            <a class="like-icon" href="/like/{{item.id}}"><i class="fa fa-heart"></i></a>
+            <a class="comment-icon" href="/comments/{{item.id}}"><i class="fa fa-comment"></i></a>
             <p class="Likes">Liked by {{item.likes.count}} others</p>
             <p>
-                <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a> {{item.caption}}.
+                <a class="Instagram-card-content-user" href="profile/{{item.owner.user.id}}">{{item.owner.user}}</a>: {{item.caption}}.
             </p>
-            <a href="/comment/{{item.id}}" class="comment-direct">
+            <a href="/comments/{{item.id}}" class="comment-direct">
               <p>View All Comments</p>
             </a>
             <p>{{item.pub_date|timesince}} Ago</p>
+       
             <hr>        
             </div>
             <hr>
             <br>
           </div>
+          <br><br><br>
         {%endfor%}  
 
     </div>
@@ -91,4 +98,25 @@
 
   </div>
 </div>
+<style>
+  .container{
+    position:relative;
+  }
+  .collection{
+    position: absolute;
+    left: 30%;
+  }
+  .image-holder{
+    text-align: center;
+  }
+  .card{
+    border: 1px solid rgb(173, 173, 173);
+    }
+    a{
+      color: black;
+    }
+    p{
+      word-wrap: break-word;
+    }
+</style>
 {%endblock%}

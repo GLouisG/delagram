@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    url('^$',views.landing,name='home'),  
+    url('^$',views.landing,name='landing'),  
     url(r'^new/post$', views.new_post, name='new_post'),
     url(r'^comments/(\d+)', views.comment, name='comment'),
     url(r'^profile/(\d+)', views.profile, name='profile'),
@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^like/(\d+)', views.like, name="like"),  
     url(r'^search/',  views.search_results, name='search_results'),
     url(r'^bio/', views.bio, name='bio'),
-    path("followToggle/<str:name>/",views.followToggle, name="followToggle")
+    path("followToggle/<str:name>/",views.followToggle, name="followToggle"),
+    url(r'^update/profile$', views.update_profile, name='update_profile'),
 ]

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from cloudinary.models import CloudinaryField
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
@@ -40,7 +41,8 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 class Image(models.Model):
-  image = models.ImageField(upload_to='images/')
+  # image = models.ImageField(upload_to = 'images/',)
+  image = CloudinaryField('image')
   caption = models.TextField()
   owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
   likes = models.ManyToManyField(User, blank=True)

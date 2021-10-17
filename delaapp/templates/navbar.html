@@ -10,7 +10,7 @@
 </head>
 <body>
   <nav class="navbar">
-      <a class="navbar-brand" href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" height="30" alt=""></a>
+      <a class="navbar-brand" href="{%url 'landing'%}"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" height="30" alt=""></a>
       <div class="col-sm-4 col-md-4 navbar-nav srch">
 
         <form class="navbar-form" role="search" action="{% url 'search_results' %}">
@@ -37,7 +37,7 @@
             </li>
             <li class="nav-item">
               <a href="{% url 'you' %}">
-                <img src="{{user.profile.picture.url}}">
+                <i class="fa fa-user" style="font-size:24px; color: rgb(0, 0, 0)"></i>
             </a>
           </li>               
           </ul>
