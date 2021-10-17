@@ -5,9 +5,12 @@ from django.db.models.signals import post_save
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
-    picture = models.ImageField(upload_to = 'profiles/', default='SOME STRING')
+    picture = models.ImageField(upload_to = 'profiles/', default='profile.jpg')
     bio = models.TextField(max_length=500, default=f'This is my bio, Welcome!')
-    following = models.ManyToManyField(User, blank=True, related_name='followers')
+    following = models.ManyToManyField(
+      #User, blank=True, related_name='followers'
+      "self", blank=True, related_name="followers", symmetrical=False
+      )
     
     def __str__(self):
           return f'Profile {self.user.username}'

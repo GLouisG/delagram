@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^you/', views.you, name="you"), 
     url(r'^like/(\d+)', views.like, name="like"),  
     url(r'^search/',  views.search_results, name='search_results'),
+    url(r'^bio/', views.bio, name='bio'),
     path("followToggle/<str:name>/",views.followToggle, name="followToggle")
 ]

@@ -5,7 +5,7 @@ from delaapp.forms import NewCommentForm, NewImageForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from delaapp.models import Comment, Image
+from delaapp.models import Comment, Image, Profile
 # Create your views here.
 
 @login_required(login_url='/accounts/login/')
@@ -48,9 +48,17 @@ def comment(request, id):
     return render(request, 'comment.html', {"form": form, "comments": the_comments})      
 
 def you (request):
-    current_user = request.user
-    pics  =   Image.objects.get(owner = current_user).all()
-    return render(request, 'you.html', {"pics": pics,})     
+    current_user = request.user.profile
+    profile_pic = request.user.profile.picture
+    print("profile", profile_pic )
+    if profile_pic == "SOME STRING":
+        print("profile", profile_pic )
+        profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg"  
+    else:
+        profile_pic = None      
+    print("profile", profile_pic)    
+    pics  =   Image.objects.filter(owner = current_user).all()
+    return render(request, 'you.html', {"pics": pics, "profile_pic": profile_pic})     
 
 def profile(request, id):
     user = User.objects.get(id=id)
@@ -86,4 +94,14 @@ def followToggle(request, name):
         else:
             profileObj.following.add(current_user.id)
     return redirect('landing')         
-      
+
+def bio(request):
+    if 'bio' in request.GET and request.GET["bio"]:
+        current_profile = request.user.profile
+        bio_new = request.GET.get("bio")
+        current_profile.bio_updater(bio_new)
+
+        return redirect('you')
+    else:
+        message = "You haven't changed anything"
+        return redirect('you')      
