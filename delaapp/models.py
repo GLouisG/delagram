@@ -68,7 +68,8 @@ class Image(models.Model):
         print('The caption does not exist in our records')
   @classmethod
   def img_searcher(cls, search_term):
-    photos = cls.objects.filter(caption__search = search_term)
+    search_term= str(search_term)
+    photos = cls.objects.filter(caption__contains = search_term)
     return photos          
 
 
