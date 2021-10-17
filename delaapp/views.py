@@ -12,12 +12,12 @@ from delaapp.models import Comment, Image, Profile
 def landing(request):
   explore = Image.objects.all()
   current_user = request.user.profile
-  following = current_user.following.all()
-  the_feed = []
+  following = current_user.followers.all()
+  the_feed = None
   for item in following:
       feed = Image.objects.filter(owner = item).all()
-      the_feed.append(feed)
-  
+      the_feed = feed
+  print ('feed', the_feed)
   return render(request, 'index.html', {"feed": the_feed,"explore": explore})
 def new_post(request):
     current_user = request.user.profile    
@@ -70,7 +70,7 @@ def you (request):
 
 def profile(request, id):
     user = User.objects.get(id=id)
-    pics = Image.objects.get(owner = id).all()
+    pics = Image.objects.filter(owner = id).all()
     return render(request, 'profile.html', {"pics": pics, "user":user})
 
 def search_results(request):
@@ -92,15 +92,17 @@ def like(request, post_id):
        img.likes.add(current_user)
     return redirect('landing')              
 def followToggle(request, name):
-    profileObj = User.objects.get(username=name)
+    userObj = User.objects.get(username=name)
+    profileObj = userObj.profile
     current_user = User.objects.get(username=request.user.username)
+    currentObj = current_user.profile
     following = profileObj.following.all()
 
     if name != current_user.username:
-        if current_user in following:
-            profileObj.following.remove(current_user.id)
+        if currentObj in following:
+            profileObj.following.remove(currentObj.id)
         else:
-            profileObj.following.add(current_user.id)
+            profileObj.following.add(currentObj.id)
     return redirect('landing')         
 
 def bio(request):
