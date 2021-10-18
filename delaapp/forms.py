@@ -13,4 +13,4 @@ class NewCommentForm(forms.ModelForm):
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
           model = Profile
-          fields = ('picture',)  
+          fields = ('picture','bio', 'following')  
