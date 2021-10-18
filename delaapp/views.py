@@ -131,11 +131,13 @@ def update_profile(request):
     if request.method == "POST":
       form = UpdateProfileForm(request.POST, request.FILES)
       if form.is_valid():
-        prof = form.save(commit=False)
-        prof.user = current_user
-        prof.bio = current_profile.bio  
-#        prof.following = current_profile.following      
-        prof.save()        
+        # prof = form.save(commit=False)
+        # prof.user = current_user
+        # prof.bio = current_profile.bio  
+#         prof.following = current_profile.following  
+#         prof.save()       
+        image = request.FILES['image']
+        current_profile.picture = image
         return redirect('you')
     else:
         form = UpdateProfileForm()
