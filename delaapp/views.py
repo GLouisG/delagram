@@ -136,7 +136,7 @@ def update_profile(request):
         # prof.bio = current_profile.bio  
 #         prof.following = current_profile.following  
 #         prof.save()       
-        image = request.FILES['image']
+        image = form.cleaned_data['image']
         current_profile.picture = image
         return redirect('you')
     else:
