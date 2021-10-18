@@ -82,8 +82,9 @@ def profile(request, id):
         profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg"          
     else:
         profile_pic = None      
-    print("profile", profile_pic)      
-    pics = Image.objects.filter(owner = id).all()
+    print("here", profile_pic, id)      
+    pics = Image.objects.filter(owner = user.profile).all()
+    print(pics)
     return render(request, 'profile.html', {"pics": pics, "user":user,"profile_pic": profile_pic})
 
 def search_results(request):
