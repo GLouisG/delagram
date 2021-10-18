@@ -15,7 +15,7 @@ from pathlib import Path
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
-
+import  cloudinary
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')#'django-insecure-s8ldl46s6+qe3^x=+pl#^u-dvh@@58r7%^c8j2ew(cf8_$!7ya'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)     #DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)     #DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -183,3 +183,9 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
+cloudinary.config(
+cloud_name='dalt8uztf',
+api_key='913192741446122',
+api_secret='TTGJ37uyV4JWR0vbeAyhxQGRhB8'
+)
