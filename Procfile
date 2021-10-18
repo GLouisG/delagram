@@ -1,0 +1,1 @@
+web: gunicorn delagram.wsgi --log-file -

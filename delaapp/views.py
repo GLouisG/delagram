@@ -19,6 +19,7 @@ def landing(request):
       the_feed = feed
   print ('feed', the_feed)
   return render(request, 'index.html', {"feed": the_feed,"explore": explore})
+@login_required(login_url='/accounts/login/')  
 def new_post(request):
     current_user = request.user.profile    
     if request.method == "POST":
@@ -31,7 +32,7 @@ def new_post(request):
     else:
         form = NewImageForm()
     return render(request, 'new_post.html', {"form": form})
-
+@login_required(login_url='/accounts/login/')
 def comment(request, id):
     current_user = request.user.profile
     current_image = Image.objects.get(id=id)
@@ -52,6 +53,7 @@ def comment(request, id):
         the_comments = None    
     return render(request, 'comment.html', {"form": form, "comments": the_comments, "image_id": image_id})      
 
+@login_required(login_url='/accounts/login/')
 def you (request):
     current_user = request.user.profile
     profile_pic = request.user.profile.picture
@@ -66,7 +68,8 @@ def you (request):
         profile_pic = None      
     print("profile", profile_pic)    
     pics  =   Image.objects.filter(owner = current_user).all()
-    return render(request, 'you.html', {"pics": pics, "profile_pic": profile_pic})     
+    return render(request, 'you.html', {"pics": pics, "profile_pic": profile_pic})   
+      
 
 def profile(request, id):
     user = User.objects.get(id=id)
@@ -83,6 +86,8 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')        
 def like(request, post_id):
     current_user = request.user
     img = Image.objects.get(id=post_id)
@@ -90,7 +95,9 @@ def like(request, post_id):
        img.likes.remove(current_user)   
     else:
        img.likes.add(current_user)
-    return redirect('landing')              
+    return redirect('landing')            
+
+@login_required(login_url='/accounts/login/')      
 def followToggle(request, name):
     userObj = User.objects.get(username=name)
     profileObj = userObj.profile
@@ -105,6 +112,7 @@ def followToggle(request, name):
             profileObj.following.add(currentObj.id)
     return redirect('landing')         
 
+@login_required(login_url='/accounts/login/')
 def bio(request):
     if 'bio' in request.GET and request.GET["bio"]:
         current_profile = request.user.profile
@@ -116,6 +124,7 @@ def bio(request):
         message = "You haven't changed anything"
         return redirect('you')      
 
+@login_required(login_url='/accounts/login/')
 def update_profile(request):
     if request.method == "POST":
       form = UpdateProfileForm(request.POST, request.FILES)
