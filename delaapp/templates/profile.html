@@ -5,9 +5,16 @@
   <div class="profile">
     <div class="profile-row row">
       <div class="col-md-3">
-      <div class="profile-pic">
-        <img src="{{user.profile.picture.url}}" alt="profile">
-      </div>
+        <div class="profile-pic">
+          {% if profile_pic %}
+          <img style="height: 200px;" src={{profile_pic}} >
+          {%else%}
+          {%if user.profile.picture%}
+               <img style="height: 200px;" src="{{user.profile.picture.url}}">
+          {%else%}
+          {%endif%}  
+          {%endif%}
+        </div>
       </div>
       <div class="col-md-8">
         <h1>{{user.username}}</h1>
@@ -35,7 +42,7 @@
             <!-- </a>
             <a href="profile/{{item.owner.user.id}} "> -->
               <p class="image-owner">
-                 <img  src="{{item.owner.picture.url}}" class="user-image" alt="" style="height: 10px; border: 1px solid red"> {{item.owner.user}}
+                 <img  src="{{item.owner.picture.url}}" class="user-image" alt="" style="height: 40px;  "> {{item.owner.user}}
               </p>         
             </a>        
           </div>

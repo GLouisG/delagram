@@ -73,8 +73,18 @@ def you (request):
 
 def profile(request, id):
     user = User.objects.get(id=id)
+    profile_pic = user.profile.picture    
+    if profile_pic == "SOME STRING":
+        print("profile", profile_pic )
+        profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg" 
+    elif profile_pic == "profile.jpg":
+        print("profile", profile_pic )
+        profile_pic= "https://thumbs.dreamstime.com/b/print-216776620.jpg"          
+    else:
+        profile_pic = None      
+    print("profile", profile_pic)      
     pics = Image.objects.filter(owner = id).all()
-    return render(request, 'profile.html', {"pics": pics, "user":user})
+    return render(request, 'profile.html', {"pics": pics, "user":user,"profile_pic": profile_pic})
 
 def search_results(request):
     if 'image' in request.GET and request.GET["image"]:
@@ -138,6 +148,8 @@ def update_profile(request):
 #         prof.save()       
         image = form.cleaned_data['picture']
         current_profile.picture = image
+        current_profile.save()
+        print("image", image)
         return redirect('you')
     else:
         form = UpdateProfileForm()
