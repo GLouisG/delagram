@@ -134,7 +134,7 @@ def update_profile(request):
         prof = form.save(commit=False)
         prof.user = current_user
         prof.bio = current_profile.bio  
-        prof.following = current_profile.following      
+#        prof.following = current_profile.following      
         prof.save()        
         return redirect('you')
     else:
