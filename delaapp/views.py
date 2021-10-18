@@ -126,10 +126,16 @@ def bio(request):
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
+    current_profile = request.user.profile
+    current_user = request.user
     if request.method == "POST":
       form = UpdateProfileForm(request.POST, request.FILES)
       if form.is_valid():
-        prof = form.save()
+        prof = form.save(commit=False)
+        prof.user = current_user
+        prof.bio = current_profile.bio  
+        prof.following = current_profile.following      
+        prof.save()        
         return redirect('you')
     else:
         form = UpdateProfileForm()
